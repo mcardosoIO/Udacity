@@ -12,10 +12,11 @@ def break_time(total):
 def break_time_new_tab(total):
    print "Here is when this program started: " + time.ctime()
    while total <= 3:
+      print "You shall not pass: ", total 
       time.sleep(5)
       webbrowser.open_new_tab("https://youtu.be/V4UfAL9f74I")
-      print total
       total += 1
+      print total
    print "Here is when this program finished: " + time.ctime()
 
 
