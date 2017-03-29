@@ -1,5 +1,4 @@
 * Intro to Computer Science - Udacity - Python
-and
 * Programming Foundations with Python - Udacity
 
 This is a repository to all algorithm problem set in these courses.
