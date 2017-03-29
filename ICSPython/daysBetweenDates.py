@@ -4,9 +4,45 @@
 # Note that this will NOT produce correct outputs yet, since
 # our nextDay procedure assumes all months have 30 days
 # (hence a year is 360 days, instead of 365).
-#
-# day = [30,30,30,30,30,30,30,30,30,30,30,30]
-# month = [1,2,3,4,5,6,7,8,9,10,11,12] 
+# days_count_month(2012,9,1,2012,9,4)
+
+def days_count_month(year1, month1, day1, year2, month2, day2):
+   if year1 != year2:
+      total_month1 = 0
+      while year1 < year2:
+         while month1 < 12:
+            total_month1 = total_month1 + 1
+            month1 = month1 + 1
+         year1 = year1 + 1
+      return ((month2 - 1) + (total_month1 - 1)) * 30 + days_count(year1, month1, day1, year2, month2, day2)
+
+   else:
+      print "Veio por aqui"
+      return abs((month2 - month1) * 30 - days_count(year1, month1, day1, year2, month2, day2))
+      
+
+def days_count(year1, month1, day1, year2, month2, day2):
+   if month1 == month2:
+      return abs(day2 - day1)
+
+   else:
+      if day1 > 1:
+         total_days1 = 30 - day1
+         if day2 > 1:
+            total_days2 = 30 - day2
+            return total_days2 + total_days1
+         else:
+            total_days2 = 31 - day2
+            return total_days2 + total_days1
+      else:
+         total_days1 = 31 - day1
+         if day2 > 1:
+            total_days2 = 30 - day2
+            return total_days2 + total_days1
+         else:
+            total_days2 = 31 - day2
+            return total_days2 + total_days1
+      
 
 def nextDay(year, month, day):
     """Simple version: assume every month has 30 days"""
@@ -17,69 +53,14 @@ def nextDay(year, month, day):
             return year + 1, 1, 1
         else:
             return year, month + 1, 1
-
-def restDaysMonth1(year1, month1, day1, year2, month2, day2):
-   return day1 -30
-
-def restDaysMonth2(year1, month1, day1, year2, month2, day2):
-   return day2 -30
-
-def totalDaysYear2(year1, month1, day1, year2, month2, day2):
-   month1 = 1
-   total3 = 0   
-   while month1 < month2:
-      total3 += 30
-      month1 += 1
-   return total3 - restDaysMonth2(year1, month1, day1, year2, month2, day2)
-
-def totalDaysFirstYear1(year1, month1, day1, year2, month2, day2):   
-   year1, month1, day1 = nextDay(year1, month1, day1)
-   print year1, month1, day1
-
-   total2 = 0
-   month1 = 1
-   while month1 < 12:
-      total2 +=30
-      month1 +1
-      year1 += 1
-   return total2    
         
-def daysBetweenDates(year1, month1, day1, year2, month2, day2):
-
-   if year1 != year2:
-      total1 = 0
-      while month1 < month2:
-         total1 += 30
-         month1 += 1
-      year1 += 1
-      return total1
-   
-   total2 = 0
-   while year1 != year2:
-      month1 = 1
-      while month1 < 12:
-         total2 +=30
-         month1 +1
-         year1 += 1
-
-   return total1 + total2 - totalDaysYear2(year1, month1, day1, year2, month2, day2)
+#def daysBetweenDates(year1, month1, day1, year2, month2, day2):
+#   year, month, day = nextDay(year, month, day)
 
 
-
-
-#print daysBetweenDates(2012,9,30,2012,10,30)
-#print daysBetweenDates(2012,1,1,2013,10,1)
-#print daysBetweenDates(2012,9,30,2012,10,30)
-print totalDaysFirstYear1(2012,9,30,2012,10,30)
-
-
-#    """Returns the number of days between year1/month1/day1
-#       and year2/month2/day2. Assumes inputs are valid dates
-#       in Gregorian calendar, and the first date is not after
-#       the second."""
-        
     # YOUR CODE HERE!
 #    return
+
 #def test():
 #    test_cases = [((2012,9,30,2012,10,30),30), 
 #                  ((2012,1,1,2013,1,1),360),
@@ -91,7 +72,10 @@ print totalDaysFirstYear1(2012,9,30,2012,10,30)
 #            print "Test with data:", args, "failed"
 #        else:
 #            print "Test case passed!"
-
+#
 #test()
     
-
+print str(days_count_month(2012,9,30,2012,10,30)) + " Shall be: 30"
+print str(days_count_month(2012,1,1,2013,1,1)) + " Shall be: 360"
+print str(days_count_month(2012,9,1,2012,9,4)) + " Shall be: 3"
+#print days_count(2012,1,1,2013,1,1)
